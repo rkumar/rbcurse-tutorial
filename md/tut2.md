@@ -1,8 +1,8 @@
 RBCURSE Tutorial
 =========
 
-Prev: [Buttons](tut1.html)
-Next: [Comboboxes](tut3.html)
+Prev: [Listboxes](tut2.md)
+Next: [TextViews](tut3.md)
 
 This page shows how to create list boxes, populate them, update them, and bind events to listbox actions.
 Various ways of navigating a listbox are also shown. Listboxes support single and multiple selection.
@@ -87,6 +87,6 @@ prog3.rb shows a listbox, with multiple selection and editing. Using the toggle 
 
 
 [Home](./tut0.md)
-Prev: [Buttons](tut1.html)
-Next: [Comboboxes](tut3.html)
+Prev: [Listboxes](tut2.md)
+Next: [TextViews](tut3.md)
 

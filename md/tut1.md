@@ -1,8 +1,8 @@
 RBCURSE Tutorial
 =========
 
-Prev: [Forms and Fields](tut0.html)
-Next: [Listboxes](tut2.html)
+Prev: [Forms and Fields](tut0.md)
+Next: [Listboxes](tut2.md)
 
 On the previous page, installation, and creation of basics such as a window, form, fields and labels was demonstrated. Only a few capabilities were shown.
 
@@ -110,6 +110,6 @@ Variables types allows for Hash and Array in addition to basic types.
 
 
 [Home](./tut0.md)
-Prev: [Forms and Fields](tut0.html)
-Next: [Listboxes](tut2.html)
+Prev: [Forms and Fields](tut0.md)
+Next: [Listboxes](tut2.md)
 

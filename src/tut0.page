@@ -6,11 +6,11 @@ CONVERT_BREAKS: 0
 STATUS: publish
 FILTER: maruku
 PUBLISH_DATE:
-NEXTLINK: tut1.html
+NEXTLINK: tut1.md
 NEXTTEXT: Buttons
-PREVLINK: 
-PREVTEXT: 
-HOMELINK: tut0.html
+PREVLINK: README.md
+PREVTEXT: Table of Contents
+HOMELINK: tut0.md
 INTRO: <<!!
 The following is a simple introduction to [rbcurse-core ](https://github.com/rkumar/rbcurse-core), a ruby ncurses windowing toolkit to create "graphical" user interfaces for terminals or character based interfaces. For more details, please refer examples in the examples folder of the distribution. 
 

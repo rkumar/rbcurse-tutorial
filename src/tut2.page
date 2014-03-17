@@ -9,11 +9,11 @@ CONVERT_BREAKS: 0
 STATUS: publish
 FILTER: maruku
 PUBLISH_DATE:
-NEXTLINK: tut3.html
-NEXTTEXT: Comboboxes
-PREVLINK: tut1.html
-PREVTEXT: Buttons
-HOMELINK: tut0.html
+NEXTLINK: tut3.md
+NEXTTEXT: TextViews
+PREVLINK: tut2.md
+PREVTEXT: Listboxes
+HOMELINK: tut0.md
 INTRO: <<!!
 This page shows how to create list boxes, populate them, update them, and bind events to listbox actions.
 Various ways of navigating a listbox are also shown. Listboxes support single and multiple selection.

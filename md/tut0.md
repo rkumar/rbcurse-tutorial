@@ -1,7 +1,8 @@
 Rbcurse Tutorial
 =========
 
-| Prev: | [Home](README.md) | Next: [Buttons](tut1.html) |
+Prev: [Table of Contents](README.md)
+Next: [Buttons](tut1.md)
 
 The following is a simple introduction to [rbcurse-core ](https://github.com/rkumar/rbcurse-core), a ruby ncurses windowing toolkit to create "graphical" user interfaces for terminals or character based interfaces. For more details, please refer examples in the examples folder of the distribution. 
 
@@ -150,9 +151,6 @@ For example of usage of these properties, see test2.rb
 
 
 [Home](./tut0.md)
-Prev: []()
-Next: [Buttons](tut1.html)
+Prev: [Table of Contents](README.md)
+Next: [Buttons](tut1.md)
 
-| Table | of | Contents |
-| :------------ |:---------------:| -----:|
-| Prev: | [Home](README.md) | Next: [Buttons](tut1.html) |
