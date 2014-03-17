@@ -154,5 +154,6 @@ For example of usage of these properties, see test2.rb
 Prev: []()
 Next: [Buttons](tut1.html)
 
+| Table | of | Contents |
 | :------------ |:---------------:| -----:|
 | Prev: | [Home](README.md) | Next: [Buttons](tut1.html) |
