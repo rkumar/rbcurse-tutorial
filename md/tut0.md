@@ -23,7 +23,7 @@ rbcurse can be installed as follows:
 rbcurse-core depends on ffi-ncurses only, which should get installed as a dependency. 
 
 
-Please try out some examples, preferable test2.rb in the examples directory.
+Please try out some examples, preferable test2.rb in the examples directory of rbcurse-extras project (This is no longer under core since it uses several non-core componrnts). rbcurse-core's examples has many examples which use only core components.
    
     cd examples
     ruby test2.rb
@@ -37,15 +37,26 @@ Approaches to Application Creation
 
 There are two ways of creating an application. In the first, all the setup and teardown is done by the programmer. In the second, the setup and teardown of ncurses, is taken care of by an App object. We recommend that you first get used to doing the setup yourself. Once you are familiar, you can try out the simpler App wrapper.
 
+rbcurse-core's examples contain examples of both the App object, and the original way. For the original way see testlistbox.rb.
+
 Basic Setup
 ===========
 
 The following are the minimal requires for a program. Since rbcurse logs internally, a logger must be instantiated. rwidget contains some basic widgets such as field, button and label.
 
-    require 'ncurses'
+    ```ruby
     require 'logger'
+    ## this includes ffi-ncurses, window, Form and the basic widgets such as field and button, 
+    ## as well as dialog
     require 'rbcurse'
-    require 'rbcurse/rwidget'
+    ```
+
+If you are using additional widgets such as listbox or textview, you will require them as follows:
+
+    ```ruby
+    require 'rbcurse/core/widgets/rlist'
+    require 'rbcurse/core/widgets/rtextview'
+    ```
 
 ### Curses setup
 
@@ -53,6 +64,13 @@ This initializes colors, keys and various other setting such as delay, cbreak et
 
     VER::start_ncurses  
 
+### Logger setup
+
+Setting up the logger is critical, rbcurse uses it. You may however modify the location
+and the log level. 
+
+    $log = Logger.new((File.join(ENV["LOGDIR"] || "./" ,"rbc13.log")))
+    $log.level = Logger::DEBUG
 
 ## Creating a root window
 
@@ -81,21 +99,30 @@ Typically we want more control over what is printed. We want user entry and navi
 
       @form = Form.new @window
 
-Within the outer loop, the form handles each key, sending it to the relevant component for further handling.
+All components take the form as the first parameter. This obviates having to separately add a component to a form. In rare situations, we do create components with a nil form in situations where the form will be created later, but this shall be discussed later.
+
+After adding all the components to a form, the form is painted using repaint(), the window refreshed and panels updated. After this, the keypress loop may be commenced. `repaint` only repaints those widgets that have been modified since the last keypress, thus is very efficient.
+
+    @form.repaint
+    @window.wrefresh
+    Ncurses::Panel.update_panels
+
+Within the outer (keypress) loop, the form handles each key, sending it to the relevant component for further handling.
 
       @form.handle_key(ch)
 
 Only if a key is unhandled by the focused component, does the form process it. Actions may be mapped to keystrokes caught by all components and the Form too. Actions may be bound to Form events, too. (XXX)
-
 
 Form events include ENTER and LEAVE. These actually apply to all components of a form. This allows us to attach an action to all fields of a form on entry and exit of that component. This can be used to change the background of the label of the focused field as in test2.rb, or to save values to a structure etc.
 
       @form.bind(:ENTER) { |f|   f.label && f.label.bgcolor = 'red' if f.respond_to? :label}
       @form.bind(:LEAVE) { |f|  f.label && f.label.bgcolor = 'black'   if f.respond_to? :label}
 
+Unlike ncurses, rbcurse allows components to be added or removed even after the form has been created. There are almost no restrictions on widget/component creation and removal. All attributes of a widget may be changed at any time. rbcurse does not use ncurses FORM or other features. It only uses the basic window and panel. Everything else is handled within ruby itself.
+
 ## Labels
 
-A label is a dynamic piece of text. Its may be changed in many ways once created. Changed can be triggered from other fields.
+A label is a dynamic piece of text. It may be changed in many ways once created. Changes can be triggered from other fields.
 
       colorlabel = Label.new @form, {'text' => "Select a color:", "row" => 2, "col" => 10, "color"=>"cyan", "mnemonic" => 'S'}
 
@@ -115,7 +142,7 @@ An entry field may be created as follows.
           set_label Label.new @form, {'text' => "Name", 'color'=>'cyan','mnemonic'=> 'N'}
         end
 
-The above shows some very basic settings of a field. There are plenty more which are used in the examples, such as test2.rb. This example shows creating a label along with the field. The label is automatically attached to the field, so that the mnemonic key puts focus onto the field. A label may be attached later, too. Other widgets may not have a set_label, so label_for may be used to attach to them.
+The above shows some very basic settings of a field. There are plenty more which are used in the examples, such as test2.rb (see rbcurse-extras). This example shows creating a label along with the field. The label is automatically attached to the field, so that the mnemonic key puts focus onto the field. A label may be attached later, too. Other widgets may not have a set_label, so label_for may be used to attach to them.
 
 The above has been put together in prog1.rb in which several fields are created in a loop. You may traverse using tab and back-tab as well as the mnemonics. Not much else you can do since this is the very basic screen. 
 

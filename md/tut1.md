@@ -10,6 +10,9 @@ On the previous page, installation, and creation of basics such as a window, for
 
 # Buttons
 
+Although buttons are a core component, however the only example that uses all the various types of buttons
+is test2.rb which exists inside the rbcurse-extras project. I strongly suggest that you download that project from github, or install the gem and try out test2.rb. (TODO: extract field and button portion from test2.rb into an example in core).
+
 ## Creating an action button
 
 A basic button may be created as follows. Name is optional for all widgets, but helps if we wish to change attributes of a widget by name. Otherwise, usually a handle is used. Name is also often used in debug listings.
