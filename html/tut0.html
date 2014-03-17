@@ -1,0 +1,201 @@
+<html><head><link type="text/css" href="../css/plain.css" rel="stylesheet" />
+</head><body>
+<div style="font-weight:bold; text-align:center">
+
+    <CENTER>
+Rbcurse Tutorial
+    </CENTER>
+</div>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF=""></A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            &nbsp;
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut1.html">Buttons</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+             <hr width="100%"/>
+              
+              
+<div id="content">
+    <p class="intro_text">
+<p>The following is a simple introduction to <a href="https://github.com/rkumar/rbcurse-core">rbcurse-core</a>, a ruby ncurses windowing toolkit to create “graphical” user interfaces for terminals or character based interfaces. For more details, please refer examples in the examples folder of the distribution.</p>
+
+<p>I am in the process of updating this tutorial based on an ancient tutorial which lies on rubyforge which I can no longer update due to some “Permission denied (publickey,gssapi-keyex,gssapi-with-mic)” error.</p>
+</p>
+
+<h1 id="installation">Installation</h1>
+
+<p>It is best to have ruby 1.9.1 or higher (latest) installed. If you are using 1.8.7 and you face any issues, please report. If you use both versions, you will have to install both gems under both version.</p>
+
+<p>rbcurse can be installed as follows:</p>
+
+<pre><code>gem install rbcurse-core</code></pre>
+
+<p>rbcurse-core depends on ffi-ncurses only, which should get installed as a dependency.</p>
+
+<p>Please try out some examples, preferable test2.rb in the examples directory.</p>
+
+<pre><code>cd examples
+ruby test2.rb</code></pre>
+
+<p>If you any problems running these examples, the first step is to run the examples in the ffi-ncurses gem to see that there is no issue in ncurses or ffi-ncurses install. The examples require write access in the current folder (configurable) for the log file.</p>
+
+<p>Here’s a screenshot of <a href="http://www.benegal.org/files/screen/nc_screenshot_122508.png">test2.rb</a>. At this point, you have a working version of rbcurse.</p>
+
+<h1 id="approaches_to_application_creation">Approaches to Application Creation</h1>
+
+<p>There are two ways of creating an application. In the first, all the setup and teardown is done by the programmer. In the second, the setup and teardown of ncurses, is taken care of by an App object. We recommend that you first get used to doing the setup yourself. Once you are familiar, you can try out the simpler App wrapper.</p>
+
+<h1 id="basic_setup">Basic Setup</h1>
+
+<p>The following are the minimal requires for a program. Since rbcurse logs internally, a logger must be instantiated. rwidget contains some basic widgets such as field, button and label.</p>
+
+<pre><code>require &#39;ncurses&#39;
+require &#39;logger&#39;
+require &#39;rbcurse&#39;
+require &#39;rbcurse/rwidget&#39;</code></pre>
+
+<h3 id="curses_setup">Curses setup</h3>
+
+<p>This initializes colors, keys and various other setting such as delay, cbreak etc so that control and other keys may be used.</p>
+
+<pre><code>VER::start_ncurses  </code></pre>
+
+<h2 id="creating_a_root_window">Creating a root window</h2>
+
+<p>Typically for an application, you wish to start with a full screen. We use the window class for that.</p>
+
+<pre><code>@window = VER::Window.root_window</code></pre>
+
+<p>A window may be written to as follows. The parameters are row, column, string to print, color, and attributes. Other colors that have been created include: errorcolor, promptcolor, reversecolor. See colormap.rb.</p>
+
+<pre><code>@window.printstring 0, 30, &quot;Demo of Ruby Curses Widgets - rbcurse&quot;, $normalcolor, &#39;reverse&#39;</code></pre>
+
+<p>Attributes are: bold, reverse, normal and underline. blink is present but does not work. underline does not work on a few terminals.</p>
+
+<p>Note that only static text is written directly to a window. This text could get overwritten or erased by another field or print statement. What that means is that for most other purposes a label is recommended. A labels color or text or attribute or alignment or position can be changed at any time, whereas static text cannot be changed.</p>
+
+<p>The other function of a form is to accept keyboard input in the outer loop and despatch it to the form. The window takes care of decoding function keys and multiple key codes, meta or escape combinations, so a form or component never has to decode.</p>
+
+<pre><code>  while((ch = @window.getchar()) != KEY_F1 )</code></pre>
+
+<p>The above accepts all keys, but exits on an F1. Remember to call <code>window.destroy</code> at the end, so that all ncurses windows, panels etc may be destroyed. This is essential when one window creates another window as not releasing panels could result in a crash.</p>
+
+<h2 id="forms">Forms</h2>
+
+<p>Typically we want more control over what is printed. We want user entry and navigation. Thus one or more forms may be created using a window. A form uses a window to write to. It is a container for various components.</p>
+
+<pre><code>  @form = Form.new @window</code></pre>
+
+<p>Within the outer loop, the form handles each key, sending it to the relevant component for further handling.</p>
+
+<pre><code>  @form.handle_key(ch)</code></pre>
+
+<p>Only if a key is unhandled by the focused component, does the form process it. Actions may be mapped to keystrokes caught by all components and the Form too. Actions may be bound to Form events, too. (XXX)</p>
+
+<p>Form events include ENTER and LEAVE. These actually apply to all components of a form. This allows us to attach an action to all fields of a form on entry and exit of that component. This can be used to change the background of the label of the focused field as in test2.rb, or to save values to a structure etc.</p>
+
+<pre><code>  @form.bind(:ENTER) { |f|   f.label &amp;&amp; f.label.bgcolor = &#39;red&#39; if f.respond_to? :label}
+  @form.bind(:LEAVE) { |f|  f.label &amp;&amp; f.label.bgcolor = &#39;black&#39;   if f.respond_to? :label}</code></pre>
+
+<h2 id="labels">Labels</h2>
+
+<p>A label is a dynamic piece of text. Its may be changed in many ways once created. Changed can be triggered from other fields.</p>
+
+<pre><code>  colorlabel = Label.new @form, {&#39;text&#39; =&gt; &quot;Select a color:&quot;, &quot;row&quot; =&gt; 2, &quot;col&quot; =&gt; 10, &quot;color&quot;=&gt;&quot;cyan&quot;, &quot;mnemonic&quot; =&gt; &#39;S&#39;}</code></pre>
+
+<p>In the example, a mnemonic has been set. Alt-s will put the focus on the field or widget that this focus has been attached to using <code>label_for</code>. Other settings are self-explanatory. A label may be multi-line, is may be aligned right or left or center, any of its attributes may be changed at any time, including location (although that’s rare, but mentioned to emphasize that unlike ncurses, all widgets may be created or modified at any time).</p>
+
+<h2 id="fields_text_fields">Fields (Text fields)</h2>
+
+<p><img src="http://www.benegal.org/files/nc_labelhotkey.png" alt="Fields" /></p>
+
+<p>An entry field may be created as follows.</p>
+
+<pre><code>    field = Field.new @form do
+      name   &quot;Name&quot;
+      row  5 
+      col  12 
+      display_length  30
+      set_label Label.new @form, {&#39;text&#39; =&gt; &quot;Name&quot;, &#39;color&#39;=&gt;&#39;cyan&#39;,&#39;mnemonic&#39;=&gt; &#39;N&#39;}
+    end</code></pre>
+
+<p>The above shows some very basic settings of a field. There are plenty more which are used in the examples, such as test2.rb. This example shows creating a label along with the field. The label is automatically attached to the field, so that the mnemonic key puts focus onto the field. A label may be attached later, too. Other widgets may not have a set_label, so label_for may be used to attach to them.</p>
+
+<p>The above has been put together in prog1.rb in which several fields are created in a loop. You may traverse using tab and back-tab as well as the mnemonics. Not much else you can do since this is the very basic screen.</p>
+
+<h2 id="other_field_properties">Other Field properties</h2>
+
+<p><code>Field</code> has many properties, some of them are mentioned here.</p>
+
+<ul>
+<li>
+<p>display_length - how much is displayed, rest is scrolled</p>
+</li>
+
+<li>
+<p>maxlen - maximum length allowed for entry (Note: rename?)</p>
+</li>
+
+<li>
+<p>set_buffer - set a value into field (as in original_value) (Note: rename?)</p>
+</li>
+
+<li>
+<p>chars_allowed - what characters are allowed (e.g. /\d/ )</p>
+</li>
+
+<li>
+<p>valid_regex - regex to validate entry</p>
+</li>
+
+<li>
+<p>show - what character to show when entry (useful for password fields)</p>
+</li>
+
+<li>
+<p>color - foreground color</p>
+</li>
+
+<li>
+<p>bgcolor - background color</p>
+</li>
+
+<li>
+<p>values - list of allowed values (Note: overkill ?)</p>
+</li>
+
+<li>
+<p>null_allowed - boolean, whether one can tab out leaving field empty</p>
+</li>
+</ul>
+
+<p>For example of usage of these properties, see test2.rb</p>
+
+<p><a href="prog1.rb">Source</a><br /><a href="prog1.png">Screenshot</a></p>
+
+</div></div>
+<hr width="100%"/>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF=""></A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            <A HREF="tut0.html">Home</A>
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut1.html">Buttons</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+</body></html>
+

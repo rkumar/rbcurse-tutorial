@@ -1,0 +1,143 @@
+<html><head><link type="text/css" href="../css/plain.css" rel="stylesheet" />
+</head><body>
+<div style="font-weight:bold; text-align:center">
+
+    <CENTER>
+RBCURSE Tutorial
+    </CENTER>
+</div>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF="tut0.html">Forms and Fields</A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            &nbsp;
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut2.html">Listboxes</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+             <hr width="100%"/>
+              
+              
+<div id="content">
+    <p class="intro_text">
+<p>On the previous page, installation, and creation of basics such as a window, form, fields and labels was demonstrated. Only a few capabilities were shown.</p>
+</p>
+
+<h1 id="buttons">Buttons</h1>
+
+<h2 id="creating_an_action_button">Creating an action button</h2>
+
+<p>A basic button may be created as follows. Name is optional for all widgets, but helps if we wish to change attributes of a widget by name. Otherwise, usually a handle is used. Name is also often used in debug listings.</p>
+
+<pre><code>  ok_button = Button.new @form do
+    text &quot;OK&quot;
+    name &quot;OK&quot;
+    row 20
+    col 20
+    mnemonic &#39;O&#39;
+  end</code></pre>
+
+<p>The above creates an OK button that may be pressed, or executed using Alt-o. However, you will want to attach some action to the button. By default, changing of color or attribute while tabbing over etc is taken care of but may be overriden.</p>
+
+<pre><code>  ok_button.command { |form|
+    alert(&quot;About to dump data into log file!&quot;)
+    myobject.insert name.getvalue, age.getvalue, password.getvalue
+  }</code></pre>
+
+<p>In this case, an alert box has been popped up using a convenience method. However, here is where you could call a method to dump data to a file, or send to a server. In this case, we pretend that you have some object named myobject which can take an array of values and perhaps save the same. See the method <code>dump_data</code> in rwidget.rb to get an idea how you can make a method to unroll form objects in a loop and write out their values. dump_data is just a test method, don’t use it as it is deprecated.</p>
+
+<p><img src="http://www.benegal.org/files/nc_button_focus.png" alt="Button" title="Two buttons" /></p>
+
+<h2 id="creating_a_radio_button">Creating a radio button</h2>
+
+<pre><code>  row = 3
+  col = 4
+  $radio = Variable.new
+
+  radio1 = RadioButton.new @form do
+    variable $radio
+    text &quot;red&quot;
+    value &quot;red&quot;
+    color &quot;red&quot;
+    display_length 18  # helps when right aligning
+    row row
+    col col
+  end</code></pre>
+
+<p>We haven’t really discussed Variable and should do so soon. However, typically a global variable is shared across various linked radio buttons. That variable contains the value of what’s been selected. Several fields instead of using a buffer of their own use an object called Variable. Variable is an object whose value can be changed, and when changed it triggers actions that have been attached to it. Multiple actions may be attached.</p>
+
+<p>In the above case, a Variable was used so that some other components could attach their actions using <code>update_command</code>. In test2.rb, you may select a color from a set of radio buttons with different colors. Various other labels change their color instantly based on this.</p>
+
+<p>Typically, a radio button is left aligned. If you wish to right-align, then give a display length. A radio buttons alignment may be changed at any time (see test2.rb), although you would rarely want to do so.</p>
+
+<p><a href="http://www.benegal.org/files/nc_buttonhotkeys.png">Various Buttons</a></p>
+
+<h2 id="creating_a_check_box">Creating a check box</h2>
+
+<p>A check box may be created as follows.</p>
+
+<pre><code>  checkbutton = CheckBox.new @form do
+    variable $results
+    onvalue &quot;Selected bold   &quot;
+    offvalue &quot;UNselected bold&quot;
+    text &quot;Bold attribute &quot;
+    display_length 18  # helps when right aligning
+    row row
+    col col
+    mnemonic &#39;B&#39;
+  end</code></pre>
+
+<p>In the above example, <code>text</code> is what is displayed. When selected the onvalue is placed in <code>variable</code> which is a Variable. In test2.rb, the variable results has been used as <code>text_variable</code> for a Label. Selection of this checkbox, changes the text of that label. However, a Variable is not necessary. <code>checkbutton.getvalue</code> will return the value depending on whether checked or not.</p>
+
+<p>TODO - Need to list events and bindings for each component.</p>
+
+<h2 id="creating_a_togglebutton">Creating a ToggleButton</h2>
+
+<p>A toggle button can have an off or on value.</p>
+
+<pre><code>  togglebutton = ToggleButton.new @form do
+    value  true
+    onvalue  &quot; Toggle Down &quot;
+    offvalue &quot;  Untoggle   &quot;
+    row row
+    col col
+    mnemonic &#39;T&#39;
+  end</code></pre>
+
+<p>One small catch, ensure that the mnemonic letter is present in both on or off value. Otherwise, it will still be active but will not obviously display. (XXX - cant remember. maybe the same offset will be shown underlined)</p>
+
+<h2 id="create_a_variable">Create a Variable</h2>
+
+<p>Variable is a concept taken from the Tk toolkit. A variable is an object whose value may be changed. Upon change, actions that have been attached to it are triggered. This way 2 or more components can be tied together. This concept influenced some of the initial components that were created. Perhaps due to the event driven nature of this toolkit, there are other ways around to do the same without using Variable, by attaching blocks to the dependent component itself. Most of the later components do not give the option of Variable (actually it may not make sense in all).</p>
+
+<p>Any component that is created with <code>text_variable</code> property, will have its change handler fired when the value of the Variable is changed. This ensures that the component is redrawn automatically. In other words, a variable used as text_variable knows all the objects that depend on it.</p>
+
+<p>Variables types allows for Hash and Array in addition to basic types.</p>
+
+<p>(XXX- Note, my memory of Variable is not too good, i could have missed out some stuff).</p>
+
+<p><a href="prog2.rb">Source</a><br /><a href="prog2.png">Screenshot</a></p>
+
+</div></div>
+<hr width="100%"/>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF="tut0.html">Forms and Fields</A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            <A HREF="tut0.html">Home</A>
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut2.html">Listboxes</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+</body></html>
+

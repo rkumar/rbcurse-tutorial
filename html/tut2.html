@@ -1,0 +1,119 @@
+<html><head><link type="text/css" href="../css/plain.css" rel="stylesheet" />
+</head><body>
+<div style="font-weight:bold; text-align:center">
+
+    <CENTER>
+RBCURSE Tutorial
+    </CENTER>
+</div>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF="tut1.html">Buttons</A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            &nbsp;
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut3.html">Comboboxes</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+             <hr width="100%"/>
+              
+              
+<div id="content">
+    <p class="intro_text">
+<p>This page shows how to create list boxes, populate them, update them, and bind events to listbox actions. Various ways of navigating a listbox are also shown. Listboxes support single and multiple selection.</p>
+</p>
+
+<h1 id="listboxes">Listboxes</h1>
+
+<p><img src="http://www.benegal.org/files/screen/nc_list_edit.png" alt="Listbox" /></p>
+
+<h2 id="creating_a_listbox">Creating a listbox</h2>
+
+<p>A listbox can be created with list data contained in an array. It may also be passed a list_variable which is a Variable object created with an array. Changes to original array do not affect the listbox. The listbox uses a model-controller architecture. Changes to the original array will not fire events bound on the listbox. To insert objects into a Listbox after creation, please use either <code>insert</code> of the listbox or its data model.</p>
+
+<p>A list manages scrolling and paging of data. Lists can be editable or readonly.</p>
+
+<p>First create a list of 100 items.</p>
+
+<pre><code>    mylist = []
+    0.upto(100) { |v| mylist &lt;&lt; &quot;#{v} scrollable data&quot; }
+    $listdata = Variable.new mylist</code></pre>
+
+<p>Create a list box giving it the array, or list variable. You may select single or multiple selection, symbol to display when selecting or deselecting, and whether editing is allowed.</p>
+
+<pre><code>    listb = Listbox.new @form do
+      name   &quot;mylist&quot; 
+      row  r 
+      col  1 
+      width 40
+      height 11
+      #list mylist
+      list_variable $listdata
+      #selection_mode :SINGLE
+      show_selector true
+      row_selected_symbol &quot;[X] &quot;
+      row_unselected_symbol &quot;[ ] &quot;
+      title &quot;A long list&quot;
+      title_attrib &#39;reverse&#39;
+      cell_editing_allowed true
+    end</code></pre>
+
+<p>The following are three ways of inserting data into the listbox at offset 55.</p>
+
+<pre><code>    listb.insert 55, &quot;hello ruby&quot;, &quot;so long pypy&quot;, &quot;farewell java&quot;, &quot;RIP .Net&quot;
+    $listdata.value.insert 55, &quot;hello ruby&quot;, &quot;so long XML&quot;, &quot;farewell j2ee&quot;, &quot;RIP jsp&quot;
+    listb.list_data_model.insert 55, &quot;hello ruby&quot;, &quot;so long perl&quot;, &quot;farewell java&quot;, &quot;RIP .Net&quot;, &quot;hi lisp&quot;</code></pre>
+
+<h3 id="listbox_events">Listbox events</h3>
+
+<p>Binding an event to when focus enters a row. The list and the given object are passed to the block. ENTER_ROW and LEAVE_ROW are two navigational events.</p>
+
+<pre><code>    listb.bind(:ENTER_ROW, @textview) { |alist, tview| tview.top_row alist.current_index }</code></pre>
+
+<p>A ListDataEvent is fired whenever a row is added, appended, deleted or modified. This also holds true for when the entire list is deleted. An action can be bound to :LIST_DATA_EVENT, the event object’s type reveals CONTENT_CHANGED, INTERVAL_ADDED or INTERVAL_REMOVED. See rlistbox.rb.</p>
+
+<h3 id="listdatamodel">ListDataModel</h3>
+
+<p>A data model may be created as follows. One may then attach actions to it.</p>
+
+<pre><code>  list = ListDataModel.new( %w[spotty tiger panther jaguar leopard ocelot lion])
+  list.bind(:LIST_DATA_EVENT) { |lde| $message.value = lde.to_s; &quot;  } 
+  list.bind(:ENTER_ROW) { |obj| $message.value = &quot;ENTER_ROW :#{obj.current_index} : #{obj.selected_item} &quot;; }</code></pre>
+
+<p>A listbox may then be created with this data model. This technique is not required when creating a Listbox since one can get the data model and attach actions to it. However, when an object internally creates a list such as a combobox or message box, then this may be required. XXX CONFIRM.</p>
+
+<h3 id="listbox_navigation">Listbox navigation</h3>
+
+<p>The usual arrow keys, and C-n and C-p work for paging. The select key is typically “C-x” (confirm this XXX). C-a and C-e work within a line for beginning and end. Beginning and end of list are XXX. “/” will prompt user with a search dialog.</p>
+
+<p>Earlier, in a readonly list, pressing a key would take the cursor to the first row whose data started with that key. So pressing “x” would go to the first row starting with “x”. In order to make this more keyboard friendly, in readonly lists, now “_f_x” (as in vim’s f for forward) will do the same job. This frees other keys such as j and k for navigation. The user may map single or double keys (gg for start) as needed.</p>
+
+<p>Listboxes and Tables have 2 modes of editing. In one a field is editable as one enters. Exiting saves the cell. Escape or C-c reverts change. In another mode, pressing Enter on a field makes it editable. For rare edits, this would be better since enhanced vim-like navigation can be used.</p>
+
+<p>prog3.rb shows a listbox, with multiple selection and editing. Using the toggle buttons, one may make the list readonly, single selection, and switch on Vim-keys. If the list is readonly and Vim-key enabled, motion commands such as 5j, 10k, gg, G, and C-u k will work in addition to arrow keys. (C-u is the emacs numeric multiplier and has values of 4, 16, 64 for each consecutive press). (For vim keys, the multiplier will not work in 1.1.1. Please get latest code from github or try a higher gem if loaded.). Small typo!</p>
+
+<p><a href="prog3.rb">Source</a><br /><a href="prog3.png">Screenshot</a></p>
+
+</div></div>
+<hr width="100%"/>
+<TABLE width="100%">
+    <TR>
+        <TD width="33%" ALIGN="left">
+            Prev: <A HREF="tut1.html">Buttons</A>
+        </TD>
+        <TD width="34%" ALIGN="center">
+            <A HREF="tut0.html">Home</A>
+        </TD>
+        <TD width="33%" ALIGN="right">
+            Next: <A HREF="tut3.html">Comboboxes</A>
+        </TD>
+    </TR>
+
+    </TABLE>
+</body></html>
+
