@@ -1,23 +1,12 @@
-TITLE: RBCURSE Tutorial
-SUBTITLE: Page 2 - Creating Buttons
-SITETITLE: rbcurse
-SITESUBTITLE: rbcurse - sub
-SIDEBAR: NOEN
-AUTHOR: rkumar
-CATEGORY: info
-CONVERT_BREAKS: 0
-STATUS: publish
-FILTER: maruku
-PUBLISH_DATE:
-NEXTLINK: tut2.html
-NEXTTEXT: Listboxes
-PREVLINK: tut0.html
-PREVTEXT: Forms and Fields
-HOMELINK: tut0.html
-INTRO: <<!!
+RBCURSE Tutorial
+=========
+
+Prev: [Forms and Fields](tut0.html)
+Next: [Listboxes](tut2.html)
+
 On the previous page, installation, and creation of basics such as a window, form, fields and labels was demonstrated. Only a few capabilities were shown.
-!!
-BODY: <<!!
+
+
 
 # Buttons
 
@@ -118,3 +107,9 @@ Variables types allows for Hash and Array in addition to basic types.
 
 [Source](prog2.rb)  
 [Screenshot](prog2.png) 
+
+
+[Home](./tut0.md)
+Prev: [Forms and Fields](tut0.html)
+Next: [Listboxes](tut2.html)
+

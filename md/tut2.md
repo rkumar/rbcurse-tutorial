@@ -1,24 +1,13 @@
-TITLE: RBCURSE Tutorial
-SUBTITLE: Page 2 - Creating Buttons
-SITETITLE: rbcurse
-SITESUBTITLE: rbcurse - sub
-SIDEBAR: NOEN
-AUTHOR: rkumar
-CATEGORY: info
-CONVERT_BREAKS: 0
-STATUS: publish
-FILTER: maruku
-PUBLISH_DATE:
-NEXTLINK: tut3.html
-NEXTTEXT: Comboboxes
-PREVLINK: tut1.html
-PREVTEXT: Buttons
-HOMELINK: tut0.html
-INTRO: <<!!
+RBCURSE Tutorial
+=========
+
+Prev: [Buttons](tut1.html)
+Next: [Comboboxes](tut3.html)
+
 This page shows how to create list boxes, populate them, update them, and bind events to listbox actions.
 Various ways of navigating a listbox are also shown. Listboxes support single and multiple selection.
-!!
-BODY: <<!!
+
+
 
 # Listboxes
 
@@ -95,3 +84,9 @@ prog3.rb shows a listbox, with multiple selection and editing. Using the toggle 
 
 [Source](prog3.rb)  
 [Screenshot](prog3.png) 
+
+
+[Home](./tut0.md)
+Prev: [Buttons](tut1.html)
+Next: [Comboboxes](tut3.html)
+

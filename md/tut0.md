@@ -1,10 +1,13 @@
-# Rbcurse Tutorial
-## Page 1 - Window, Form, Fields and Labels
+Rbcurse Tutorial
+=========
+
+Prev: []()
+Next: [Buttons](tut1.html)
 
 The following is a simple introduction to [rbcurse-core ](https://github.com/rkumar/rbcurse-core), a ruby ncurses windowing toolkit to create "graphical" user interfaces for terminals or character based interfaces. For more details, please refer examples in the examples folder of the distribution. 
 
 I am in the process of updating this tutorial based on an ancient tutorial which lies on rubyforge which I can no longer update due to some "Permission denied (publickey,gssapi-keyex,gssapi-with-mic)" error. 
-!!
+
 
 
 Installation
@@ -146,4 +149,8 @@ For example of usage of these properties, see test2.rb
 [Source](prog1.rb)  
 [Screenshot](prog1.png) 
 
-[Next](tut1.md) 
+
+[Home](./tut0.md)
+Prev: []()
+Next: [Buttons](tut1.html)
+

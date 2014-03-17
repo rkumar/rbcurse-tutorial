@@ -14,22 +14,8 @@ if __FILE__ == $0
   tmpltext=File::read(tmpl);
   myhash=parse_heredoc_to_hash(inputfilename);
   ["BODY","INTRO"].each { |key|
-    text = myhash[key];
-    if myhash.has_key?("CONVERT_BREAKS")
-      if myhash["CONVERT_BREAKS"] == "1"
-        text.gsub!("\n","<br />\n");
-        #text.gsub!("\n(\s+)") { |match| "&nbsp;" * match.size; }
-      end
-    end
-    # this enforces conversion to html but 
-    # what if i do not want html conversion
-    if myhash.has_key?("FILTER") && myhash["FILTER"] == "maruku"
-      require 'maruku'
-      doc = Maruku.new(text)
-      text=doc.to_html
-      #text=%x{echo "#{text}" | /Users/rahul/bin/multis.sh}
-    end
-    myhash[key] = text;
+    #text = myhash[key];
+    #myhash[key] = text;
   }
 
   tmpltext.gsub!( /##(.*?)##/ ) {
