@@ -31,7 +31,7 @@ rbcurse can be installed as follows:
 rbcurse-core depends on ffi-ncurses only, which should get installed as a dependency. 
 
 
-Please try out some examples, preferable test2.rb in the examples directory of rbcurse-extras project (This is no longer under core since it uses several non-core componrnts). rbcurse-core's examples has many examples which use only core components.
+Please try out some examples, preferable [test2.rb](https://github.com/rkumar/rbcurse-extras/blob/master/examples/test2.rb) in the examples directory of [rbcurse-extras](https://github.com/rkumar/rbcurse-extras/blob/master/examples/test2.rb) project (This is no longer under core since it uses several non-core componrnts). rbcurse-core's examples has many examples which use only core components.
    
     cd examples
     ruby test2.rb
@@ -45,7 +45,7 @@ Approaches to Application Creation
 
 There are two ways of creating an application. In the first, all the setup and teardown is done by the programmer. In the second, the setup and teardown of ncurses, is taken care of by an App object. We recommend that you first get used to doing the setup yourself. Once you are familiar, you can try out the simpler App wrapper.
 
-rbcurse-core's examples contain examples of both the App object, and the original way. For the original way see testlistbox.rb.
+rbcurse-core's examples contain examples of both the App object, and the original way. For the original way see [testlistbox.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/testlistbox.rb).
 
 Basic Setup
 ===========
