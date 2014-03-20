@@ -30,6 +30,7 @@ The above creates an OK button that may be pressed, or executed using Alt-o. How
 
       ok_button.command { |form|
         alert("About to dump data into log file!")
+        ## save some data to some object, or to disk or database
         myobject.insert name.getvalue, age.getvalue, password.getvalue
       }
 

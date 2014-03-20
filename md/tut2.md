@@ -1,4 +1,4 @@
-RBCURSE Tutorial
+Rbcurse-core Tutorial
 =========
 
 Prev: [Listboxes](tut2.md)
@@ -14,6 +14,62 @@ Various ways of navigating a listbox are also shown. Listboxes support single an
 ![Listbox](http://www.benegal.org/files/screen/nc_list_edit.png)
 
 ## Creating a listbox
+
+NOTE: Added on 2014-03-20. In the original rbcurse, Listboxes and Tables were editable. However, later in rbcurse-core, i simplified code, and moved editable Lists and Table to either rbcurse-extras or rbcurse-experimental. rbcurse-core contains only non-editable lists. That means that data can be programmatically added, deleted or modified, but a user cannot edit inside the row (as is possible in the original version). This change was done to keep the code base of core as simple and clean as possible.
+
+
+      require 'rbcurse/core/widgets/rlist'
+
+      listb = List.new @form, :name   => "mylist" ,
+        :row  => 1 ,
+        :col  => 1 ,
+        :width => 25,
+        :height => 12,
+        :list => mylist,
+        :selection_mode => :SINGLE,
+        :show_selector => true,
+        #row_selected_symbol "[X] "
+        #row_unselected_symbol "[ ] "
+        :title => " Ruby Classes "
+        #title_attrib 'reverse'
+
+This creates a list at the given coordinations, populated with an array named mylist. This array has already been populated. Examples of population of list are:
+
+   
+      file = "./data/ports.txt"
+      mylist = File.open(file,'r').readlines 
+
+or 
+      mylist = `ri -l `.split("\n")
+
+Ordinarily, pressing any alphabet will move focus to the first row starting with that character. But to switch this off, you may use:
+
+
+      listb.one_key_selection = false # this allows us to map keys to methods
+
+An example of this can be seen in testlistbox.rb. We wish to use Vim's navigation keys, so we disable one_key_selection in that example. It also maps pressing of ENTER key to run a command on the value on that row. The text() method returns the value of the row which has focus.
+
+
+      listb.bind(:PRESS) { 
+          #  do something with listb.text
+      }
+
+The events mapped are ENTER_ROW, LEAVE_ROW, LIST_SELECTION_EVENT and PRESS. ENTER_ROW and LEAVE_ROW can be used
+to synch movement in this list with some other widget such as a textview. Events inherited from Widget are ENTER, LEAVE, CHANGED and PROPERTY_CHANGE.
+
+the attribute current_index gives you the index of the focussed row. selected_index and selected indices will give you the selection, depending on SINGLE or MULTIPLE selection.
+
+Other methods of interest are:
+
+- list : to supply values as an array or list_data_model
+- []   : to get value at an offset
+- append : append a value to the list
+- remove_all: remove all values
+
+Other methods are similar to their Array counterpart: insert, clear, delete_at, []= and <<.
+The methods current_value and text both return the focussed value.
+
+NOTE: The following relates to the old rbcurse project. Listbox is now part of rbcurse-extras.
 
 A listbox can be created with list data contained in an array. It may also be passed a list_variable which is a Variable object created with an array. Changes to original array do not affect the listbox. The listbox uses a model-controller architecture. Changes to the original array will not fire events bound on the listbox. To insert objects into a Listbox after creation, please use either `insert` of the listbox or its data model. 
 
