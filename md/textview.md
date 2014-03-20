@@ -1,8 +1,8 @@
 Rbcurse-core Tutorial
 =========
 
-Prev: [Lists](tut3.md)
-Next: [Tables](tut4.md)
+Prev: [Lists](list.md)
+Next: [Tables](table.md)
 
 This page shows how to create text views, populate them, update them, and bind events to actions.
 A textview is not editable by the user. The data may be programatically changed. However, the user can traverse the textbox. A text box is used to display multiple lines of text. It is scrollable both horizontally and vertically.
@@ -66,7 +66,6 @@ rbcurse-core tries to hit the 80% usage of console applications, leaving other c
 In addition to the events exposed by Widget such as ENTER and LEAVE, Textview exposes ENTER_ROW, CHANGE and PRESS
 
 
-[Home](./tut0.md)
-Prev: [Lists](tut3.md)
-Next: [Tables](tut4.md)
 
+Prev: [Lists](list.md)
+Next: [Tables](table.md)
