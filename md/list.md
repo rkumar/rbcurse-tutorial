@@ -138,9 +138,6 @@ Listboxes and Tables have 2 modes of editing. In one a field is editable as one 
 prog3.rb shows a listbox, with multiple selection and editing. Using the toggle buttons, one may make the list readonly, single selection, and switch on Vim-keys. If the list is readonly and Vim-key enabled, motion commands such as 5j, 10k, gg, G, and C-u k will work in addition to arrow keys. (C-u is the emacs numeric multiplier and has values of 4, 16, 64 for each consecutive press). (For vim keys, the multiplier will not work in 1.1.1. Please get latest code from github or try a higher gem if loaded.). Small typo!
 
 
-[Source](prog3.rb)  
-[Screenshot](prog3.png) 
 
-
-Prev: [Buttons](buttons.md)
+Prev: [Buttons](button.md)
 Next: [TextViews](textview.md)

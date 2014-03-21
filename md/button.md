@@ -106,9 +106,6 @@ Variables types allows for Hash and Array in addition to basic types.
 
 (XXX- Note, my memory of Variable is not too good, i could have missed out some stuff).
 
-[Source](prog2.rb)  
-[Screenshot](prog2.png) 
-
 
 Prev: [Fields](field.md)
 Next: [Lists](list.md)
