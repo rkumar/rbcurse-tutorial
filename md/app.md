@@ -69,3 +69,32 @@ The following line is taken from dbdemo.rb in examples. The program has a more c
       @statusline.command { 
           "[%-s] %s" % [ "#[bg=red,fg=yellow]Select a Database#[end]", text]
       }
+
+== A skeleton of a program using App
+
+
+    require 'rbcurse/core/util/app'
+    def help_text
+        <<-eos
+        Enter as much help text
+        here as you want
+        eos
+    end
+
+    App.new do 
+        ## application code comes here
+        @form.help_manager.help_text = help_text()
+
+        @header = app_header "My App #{MyApp::VERSION}", :text_center => "Yet Another Email Client that sucks", :text_right =>"Some text", :color => :black, :bgcolor => :white
+
+        @status_line = status_line
+        @status_line.command {
+
+        }
+    end # app
+
+=== See also
+
+- [Stacks and Flows](./stackflow.md)
+- [Headers](./header.md)
+- [Status Line](./statusline.md)
