@@ -18,7 +18,7 @@ In the first two examples, data is placed into Tabular as an array of arrays wit
       t << [4, 6]
       listbox.list(t.render)
 
-In this example, a header has been supplied for the Tabular. TODO what does heading do here?
+In this example, a header has been supplied for the Tabular. The header results in a separator being printed after the header.
 
     file = "data/tasks.csv"
     lines = File.open(file,'r').readlines 
@@ -31,6 +31,18 @@ In this example, a header has been supplied for the Tabular. TODO what does head
 
 The example term2.rb, uses Tabular inside a textview and listbox. However, term2.rb uses the Application object which we have not yet discussed.
 
+dbdemo.rb uses Tabular to popup the results of an sql statement in just a few lines of code.
+
+Assume we have the column names in $columns and the data in content (an array of arrays).
+
+    require 'rbcurse/core/widgets/tabular'
+    t = Tabular.new do |t|
+      t.headings = $columns
+      t.data=content   
+    end
+    view t.render
+
+`view` is a method (available globally) that pops up a textview with the data provided, allowing traversal, search etc.
 ## TabularWidget
 
 The TabularWidget is a multirow widget with data displayed in rows and columms. The columns may be resized, moved,
@@ -61,3 +73,11 @@ However, a user may be given keys to delete a row. The example, tabular.rb, show
 
 
       link programs. and put screenshots.
+
+https://github.com/rkumar/rbcurse-core/tree/master/examples
+https://github.com/rkumar/rbcurse-core/tree/master/lib/rbcurse/core/widgets
+https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabular.rb
+https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabularwidget.rb
+https://github.com/rkumar/rbcurse-core/blob/master/examples/tabular.rb
+ihttps://github.com/rkumar/rbcurse-core/blob/master/examples/term2.rb
+
