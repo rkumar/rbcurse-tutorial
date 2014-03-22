@@ -15,6 +15,25 @@ An app object may be declared as follows:
       ## application code comes here
     end # app
 
+Creating an app object, starts ncurses if it has not already been started. This allows us to have one app within another.
+It sets F10 as @quit_key, unless you have specified another. C-q is also used to quit the current application and go back one level.
+
+It creates a root window (full window) and a form for that window named @form. It initializes widget shortcuts that can be used to create widgets that automatically use @form.
+
+It binds "C-x c" to suspending ncurses so that the user may issue a command on the prompt and return to the application without having to quit.
+
+It binds "M-x" to system or user commands.
+App allows the user to bind a key to a command. Commands can be global commands such as bind_command (itself) and field_help_text (display field help if program has set help_text for a field).
+
+If the logger is set to debug mode, the "qq" also quits.
+
+App also binds ":" (colon) to user commands, so a user may issue a command. Some existing command are quit, help, close, suspend and shell_output. He may type a command, too. If the command starts with an exclamation (!), it is sent to the shell. If the App object responds to the command, it is executed (this happens if program has a method in App scope).
+Otherwise, if the current field responds to the object, it is executed for that field.
+
+If the above fail, and the program has defined a method named "execute_this" then the given string is sent to execute_this as an argument for processing. This allows the program to handle all kinds of user input.
+
+Please note that abasiclist.rb has overriden ":" for it's own menu based on the current field.
+
 == Providing some help
 
 Most of the examples, provide help text on pressing F1. You may declare a method (say help_text) outside the App object. This method returns a string containing the help text.
