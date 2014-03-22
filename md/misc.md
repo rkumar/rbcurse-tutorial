@@ -21,3 +21,15 @@ The methods refresh and specification have been defined inside the App object. A
 Please note that C-x has already been used by App and various widgets for mappings. 
 App uses M-x (Alt-x) for binding to various functions which can be selected by the user. See abasiclist.rb for an example.
 
+== Shortcuts for widgets
+
+
+== Dialogs
+
+== Text Popups
+
+== The Help System
+
+== Displaying exceptions
+
+== Color formatting of text
