@@ -1,7 +1,7 @@
 Approaches to Application Creation
 ==================================
 
-There are two ways of creating an application. In the first, all the setup and teardown is done by the programmer. In the second, the setup and teardown of ncurses, is taken care of by an App object. We recommend that you first get used to doing the setup yourself. Once you are familiar, you can try out the simpler App wrapper.
+There are two ways of creating an application. In the first, all the setup and teardown is done by the programmer. In the second, the setup and teardown of ncurses, is taken care of by an App object. We recommend that you first get used to doing the setup yourself. Once you are familiar, you can try out the simpler [App wrapper](./app.md).
 
 rbcurse-core's examples contain examples of both the App object, and the original way. For the original way see [testlistbox.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/testlistbox.rb).
 
