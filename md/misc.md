@@ -3,7 +3,7 @@ Miscellaneous
 
 Contains small helpful features for text and keyboard driven applications.
 
-== Prefix Command
+## Prefix Command
 
 If you wish to attach multiple commands to, say, C-s, using a second key you would do as follows:
 
@@ -21,7 +21,7 @@ The methods refresh and specification have been defined inside the App object. A
 Please note that C-x has already been used by App and various widgets for mappings. 
 App uses M-x (Alt-x) for binding to various functions which can be selected by the user. See abasiclist.rb for an example.
 
-== Shortcuts for widgets
+## Shortcuts for widgets
 
 [widgetshortcuts.rb](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/util/widgetshortcuts.rb) contains the latest names of shortcuts for various widgets. If you are using an App object you may find this a more conveneient way of creating objects on the screen. Shortcuts can also help in stacking objects in stacks or flows.
 
@@ -71,17 +71,35 @@ In order to place objects side by side, like a flow of buttons, we use `flow`.
         end
       end
 
-== Dialogs
+## Dialogs
 
-== Text Popups
+## Shell integration
 
-== The Help System
+For these methods, one needs to `require` appmethods.
 
-== Displaying exceptions
+    require 'rbcurse/core/include/appmethods'
 
-== Color formatting of text
+### Shell output
 
-== Key Label Printer or Dock
+   `shell_output` will prompt user for a command, and display the output in a textdialog.
+
+   `run_command (cmd)` takes a command and displays the output in a textdialog. `shell_output` calls this after prompting the user for a command.
+
+### Dropping to the shell
+
+   `suspend` will drop the user to the shell so he may execute some commands and return to the application after pressing Control-d.
+
+[Source](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/include/appmethods.rb)
+
+## Text Popups
+
+## The Help System
+
+## Displaying exceptions
+
+## Color formatting of text
+
+## Key Label Printer or Dock
 
 This mimics the bottom 2 lines of Pine/Alpine email client, or calcurse. You may specify labels and hotkeys and their respective actions. You may have context sensitive KLP's. These are also called "docks" for short. Docks may have keys added or removed from them at any stage of the application.
 A dock may contain any number of modes (the first and default being :normal, unless specified). Each mode has keys and lables associated with it. Changing the mode is enough to change the labels displayed at the bottom.
