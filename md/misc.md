@@ -110,3 +110,60 @@ This mimics the bottom 2 lines of Pine/Alpine email client, or calcurse. You may
 A dock may contain any number of modes (the first and default being :normal, unless specified). Each mode has keys and lables associated with it. Changing the mode is enough to change the labels displayed at the bottom.
 
 Usually when a dock is used, the status line is placed above it.
+
+## Property Veto Exception
+
+This allows a widget to specify that a certain property may not be changed. 
+Sometimes, some programs such as Settings may change properties of all the widgets on the screen. 
+As an example, as user wishes to try blue on white and the program changes all widgets to blue on white.
+However, there are some widgets such as a color selector in which the buttons for each color and in those 
+colors themselves. We do not wish these buttons or labels to have their color changed.
+
+The PropertyVetoException is thrown if color related properties are changed. An example is in testbuttons.rb.
+
+
+      # Use a PropertyVeto
+      # to disallow changes to color itself
+      veto = lambda { |e, name|
+        if e.property_name == 'color'
+          if e.newvalue != name
+            raise PropertyVetoException.new("Cannot change this at all!", e)
+          end
+        elsif e.property_name == 'bgcolor'
+            raise PropertyVetoException.new("Cannot change this!", e)
+        end
+      }
+      [radio1, radio2, radio11, radio22].each { |r| 
+        r.bind(:PROPERTY_CHANGE) do |e| veto.call(e, r.text) end
+      }
+
+A PropertyVetoException is not propogated to the user, it quietly disallows the change from happening.
+
+## FieldValidationException
+
+The widget Field has three validations that can throw a `FieldValidationException` upon failing.
+
+- values
+- valid_regex
+- valid_range (for numbers)
+
+This exception is not caught by the framework and thus must be caught by the caller programs and displayed to the user.
+
+testfields.rb contains this in the main loop.
+
+
+        begin
+          @form.handle_key(ch)
+
+        rescue FieldValidationException => fve 
+          alert fve.to_s
+          
+          f = @form.get_current_field
+          # lets restore the value
+          if f.respond_to? :restore_original_value
+            f.restore_original_value
+            @form.repaint
+          end
+
+An alert is first popped up to the user if the input value fails the regex or range. Then the original value
+is set into the field, to prevent the user from saving or exiting with a wrong value. 
