@@ -1,24 +1,24 @@
-== Widgets
+## Widgets
 
 Widget is the parent class for all widgets. Since a program will not create an instance of Widget but of a subclass, therefore this page only discusses general behavior inherited by all widgets.
 
-=== Methods
+### Methods
 
 Common attributes of widgets include row, col, color, bgcolor, enabled, focusable, attr (ncurses attribute such as :BOLD, :REVERSE), visible, help_text, hide, show, focus (set focus), width, height, bind_key, unbind_key, bind(event). 
 
 `height` is only applicable to multiline widgets such as textview and list and table. 
 `text` is applicable to some widgets and is used for uniformity. Field, label, textview and button are examples of widgetsthat use `text`.
 
-=== Events
+### Events
 
 - :ENTER
 - :LEAVE
 - :CHANGED
 - :PROPERTY_CHANGE
 
-=== Others
+### Others
 
-==== Widget level menu
+#### Widget level menu
    
    Each widget (often called field in the documentation even though there is a widget named Field) may have its own menu of actions.
    Calling the `action_manager` method on the widget returns an instance of ActionManager. One may then add Action objects to it, which will get shown in a menu form on pressing "M-:", Alt and ":". See rtextview.rb for an example.
