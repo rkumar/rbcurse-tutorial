@@ -14,6 +14,7 @@ An entry field may be created as follows.
       type(:integer)
 
 or 
+
      f3 = Field.new(@form).name("Address").row(20).col(3)
 
 The above is the conventional way which cannot be deprecate in future revisions. Please use the conventional way as far as possible.
@@ -39,7 +40,7 @@ There is another way of creating fields (and widgets) using the config hash.
 
 Most new examples use the config approach. I would recommend you avoid this, also. 
 
-The above shows some very basic settings of a field. There are plenty more which are used in the examples, such as testfields.rb (see examples folder). This example shows creating a label along with the field. The label is automatically attached to the field, so that the mnemonic key puts focus onto the field. A label may be attached later, too. Other widgets may not have a set_label, so label_for may be used to attach to them.
+The above shows some very basic settings of a field. There are plenty more which are used in the examples, such as testfields.rb (see examples folder). This example shows creating a label along with the field. The label is automatically attached to the field, so that the mnemonic key puts focus onto the field. A label may be attached later, too. Other widgets may not have a `set_label`, so `label_for` may be used to attach to them.
 
 You may traverse using tab and back-tab as well as the mnemonics. 
 
@@ -83,12 +84,10 @@ If you need a lot of control over the label, use `set_label`, otherwise just use
                      Alpha allows only A-Z chars, no numbers.
                      Alphanumeric allows characters and numbers.
 
-                     `type` internally uses `chars_allowed`, so for more complex cases,
-                     you may use `chars_allowed`
+`type` internally uses `chars_allowed`, so for more complex cases, you may use `chars_allowed`. This does not allow the user to type characters outside the given range. `valid_regex` does not work at entry time, but upon leaving the field.
 
 For example of usage of these properties, see test2.rb or testfields.rb
 
 Next: [Buttons](button.md)
-[Source](prog1.rb)  
-[Screenshot](prog1.png) 
+[Source](https://github.com/rkumar/rbcurse-core/blob/master/examples/testfields.rb)  
 
