@@ -4,7 +4,7 @@ Widget is the parent class for all widgets. Since a program will not create an i
 
 ### Methods
 
-Common attributes of widgets include row, col, color, bgcolor, enabled, focusable, attr (ncurses attribute such as :BOLD, :REVERSE), visible, help_text, hide, show, focus (set focus), width, height, bind_key, unbind_key, bind(event). 
+Common attributes of widgets include row, col, color, bgcolor, enabled, focusable, attr (ncurses attribute such as :BOLD, :REVERSE), visible, help_text, hide, show, focus (set focus), width, height, `bind_key`, `unbind_key`, `bind`(event). 
 
 `height` is only applicable to multiline widgets such as textview and list and table. 
 `text` is applicable to some widgets and is used for uniformity. Field, label, textview and button are examples of widgetsthat use `text`.
