@@ -95,6 +95,11 @@ For these methods, one needs to `require` appmethods.
 
 ## The Help System
 
+`display_app_help` may be used to display given string. (require appmethods.rb)
+
+If you are using App:
+
+
 ## Displaying exceptions
 
 ## Color formatting of text
