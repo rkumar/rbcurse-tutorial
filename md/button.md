@@ -7,8 +7,7 @@ Next: [Lists](list.md)
 
 # Buttons
 
-Although buttons are a core component, however the only example that uses all the various types of buttons
-is test2.rb which exists inside the rbcurse-extras project. I strongly suggest that you download that project from github, or install the gem and try out test2.rb. (TODO: extract field and button portion from test2.rb into an example in core).
+testbuttons.rb shows various buttons and their usage. This small example is taken from test2.rb which is in the rbcurse-extras project.
 
 ## Creating an action button
 
