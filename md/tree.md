@@ -7,9 +7,11 @@ Next: [????](list.md)
 
 # Trees
 
-atree.rb shows various kinds of tree.
+Trees show data in a heirarchical structure allowign the user to expand or collapse branches.
 
-Another example is testree.rb
+[atree.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/atree.rb) shows various kinds of tree.
+
+Another example is [testree.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/testree.rb).
 
 ## Creating a tree 
 
@@ -110,3 +112,20 @@ If your heirarchical data is in a hash/dict format, you can pass that to tree.
 The method `command` maps to TREE_WILL_EXPAND_EVENT, since this is often used to expand a branch with dynamic data such as the contents of a directory. This does not imply that the user has selected that node. And example of using expansion and selection is a screen that has a tree structure for directories on the left. On the right is a list containing the files in the selected directory. The tree contains only directories and never shows files.
 
 In other words, branches are on the left tree. Leaves of a selected branch are displayed as a list on the right. ENTER expands or collapses a branch and updates the file list. SPACE only affects the file list, it does not expand or collapse. This is how the File Explorer in jasspa microemacs behaves.
+
+The example [dirtree.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/dirtree.rb) is a small prototype of the above list. The only difference is that pressing ENTER does not update the list on the right. (oversight).
+
+## Traversal
+
+Aside from the bindings of list, some keys of interest are:
+
+- O : expand children
+- o : toggle expanded state (same as ENTER)
+- X : collapse children
+- x : collapse parent
+- p : goto parent
+- f : goto first row starting with char
+- > : scroll right
+- < : scroll left
+
+Press F1 or "?" on a tree to see all current bindings at runtime. Some of the above bindings were inspired by NerdTree.
