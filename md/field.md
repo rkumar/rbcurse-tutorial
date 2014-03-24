@@ -1,4 +1,4 @@
-## Fields (Text fields)
+# Fields (Text fields)
 
 ![Fields](http://www.benegal.org/files/nc_labelhotkey.png)
 

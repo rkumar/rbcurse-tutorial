@@ -1,4 +1,4 @@
-## Widgets
+# Widgets
 
 Widget is the parent class for all widgets. Since a program will not create an instance of Widget but of a subclass, therefore this page only discusses general behavior inherited by all widgets.
 

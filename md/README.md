@@ -8,14 +8,15 @@ I am in the process of updating this tutorial based on an ancient tutorial which
 
 ## Table of Contents
 
-Windows
-Forms
-Labels
-Fields
-Buttons
-Lists
-Textviews
-Tables
+- Windows
+- Forms
+- Labels
+- Fields
+- Buttons
+- Lists
+- Textviews
+- Tables
+- Trees
 
 Next: [Installation](01-install.md)
 

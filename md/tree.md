@@ -1,6 +1,3 @@
-Rbcurse-core Tutorial
-================
-
 Prev: [Tables](table.md)
 Next: [????](list.md)
 

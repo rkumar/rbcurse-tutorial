@@ -1,15 +1,11 @@
-Rbcurse-core Tutorial
-=========
 
 Prev: [Buttons](button.md)
 Next: [TextViews](textview.md)
 
+# Listboxes
+
 This page shows how to create list boxes, populate them, update them, and bind events to listbox actions.
 Various ways of navigating a listbox are also shown. Listboxes support single and multiple selection.
-
-
-
-# Listboxes
 
 ![Listbox](http://www.benegal.org/files/screen/nc_list_edit.png)
 

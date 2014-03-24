@@ -1,5 +1,3 @@
-Rbcurse-core Tutorial
-================
 
 Prev: [Fields](field.md)
 Next: [Lists](list.md)

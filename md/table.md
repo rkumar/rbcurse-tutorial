@@ -74,10 +74,13 @@ However, a user may be given keys to delete a row. The example, tabular.rb, show
 
       link programs. and put screenshots.
 
-https://github.com/rkumar/rbcurse-core/tree/master/examples
-https://github.com/rkumar/rbcurse-core/tree/master/lib/rbcurse/core/widgets
-https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabular.rb
-https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabularwidget.rb
-https://github.com/rkumar/rbcurse-core/blob/master/examples/tabular.rb
-ihttps://github.com/rkumar/rbcurse-core/blob/master/examples/term2.rb
+### See also
 
+- https://github.com/rkumar/rbcurse-core/tree/master/examples
+- https://github.com/rkumar/rbcurse-core/tree/master/lib/rbcurse/core/widgets
+- https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabular.rb
+- https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/tabularwidget.rb
+- https://github.com/rkumar/rbcurse-core/blob/master/examples/tabular.rb
+- https://github.com/rkumar/rbcurse-core/blob/master/examples/term2.rb
+
+Next: [Tree](./tree.md)

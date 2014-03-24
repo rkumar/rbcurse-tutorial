@@ -1,5 +1,5 @@
 
-## Forms
+# Forms
 
 Typically we want more control over what is printed. We want user entry and navigation. Thus one or more forms may be created using a window. A form uses a window to write to. It is a container for various components.
 
@@ -50,4 +50,5 @@ Pressing "M-?" or "?" on a field should usually display all the key mappings. `p
 
 Unlike ncurses, rbcurse allows components to be added or removed even after the form has been created. There are almost no restrictions on widget/component creation and removal. All attributes of a widget may be changed at any time. rbcurse does not use ncurses FORM or other features. It only uses the basic window and panel. Everything else is handled within ruby itself.
 
+See also: [App](./app.md)
 Next: [Labels](label.md)

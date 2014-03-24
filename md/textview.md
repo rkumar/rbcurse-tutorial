@@ -1,18 +1,12 @@
-Rbcurse-core Tutorial
-=========
-
 Prev: [Lists](list.md)
 Next: [Tables](table.md)
+
+# Textviews - Multiline text objects
 
 This page shows how to create text views, populate them, update them, and bind events to actions.
 A textview is not editable by the user. The data may be programatically changed. However, the user can traverse the textbox. A text box is used to display multiple lines of text. It is scrollable both horizontally and vertically.
 
 rbcurse-extras has a functional textarea that allows editing. However, it is advised that for editing large text, a program shells the data to an external editor. There are examples of this. This is more reliable. 
-
-
-
-# Textviews - Multiline text objects
-
 
 ## Creating a textview
 

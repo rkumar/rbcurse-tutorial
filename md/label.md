@@ -1,4 +1,4 @@
-## Labels
+# Labels
 
 A label is a dynamic piece of text. It may be changed in many ways once created. Changes can be triggered from other fields.
 
