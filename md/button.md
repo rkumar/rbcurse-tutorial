@@ -1,4 +1,4 @@
-RBCURSE Tutorial
+Rbcurse-core Tutorial
 ================
 
 Prev: [Fields](field.md)
@@ -21,6 +21,14 @@ A basic button may be created as follows. Name is optional for all widgets, but 
         mnemonic 'O'
       end
 
+or the preferred conventional approach:
+
+      ok_button = Button.new(@form).
+        text("OK").
+        name("OK").
+        row(20).
+        col(20).
+        mnemonic('O')
 
 The above creates an OK button that may be pressed, or executed using Alt-o. However, you will want to attach some action to the button. By default, changing of color or attribute while tabbing over etc is taken care of but may be overriden.
 

@@ -38,4 +38,30 @@ and the log level.
     $log = Logger.new((File.join(ENV["LOGDIR"] || "./" ,"rbc13.log")))
     $log.level = Logger::DEBUG
 
+### Widget creation
+
+There are three syntaxes or ways to create widgets.
+The first that is much used in documentation and the oldest samples is the DSL approach. I would recommend against using the DSL approach as that may be deprecated in future releases to make the code base simpler.
+
+The DSL form is as follows:
+   
+        w = Thingie.new @form do
+          row 1
+          col 3
+          text 'hello'
+        end
+
+The hash or config form has been used in recent examples and demos a lot. I would like to even remove this form to make the code simpler. However, i am not sure of this since the shortcuts us this form.
+
+        w = Thingie.new @form, :row => 1, :col => 3
+
+The third is the conventional ruby way which cannot be deprecated or changed. I would advise you to use this as much as possible. This form needs to be tested, I suspect the constructor expects various values together. Also, several methods are not returning self, such as text in buttons and mnemonic (fixed in 0.0.15)
+
+        w = Thingie.new(@form).row(1).col(3).
+        text('hello').
+        color( :cyan ).bgcolor( :white )
+
+Radio button checks for @variable at end of constructor. There could be such cases which necessitate other styles
+of construction. Fixed in version 0.0.15.
+
 Next: [Windows](window.md)

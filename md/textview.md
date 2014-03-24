@@ -24,7 +24,7 @@ The above lines create a textview of the given dimensions and then sets the cont
 The purpose of the name is for another method to get the handle and modify the content.
 
 Textviews come with keys mapped to enable quick movement and scrolling. There are options for Emacs and Vim keys.
-There is a key for discovering the keys mapped in any object.
+There is a key for discovering the keys mapped in any object (press "?" or M-? on a textview).
 
 Textviews can be extended to contain multiple buffers. A user can cycle through those buffers. This helps in creating something like a help system, or documentation.
 
@@ -65,7 +65,29 @@ rbcurse-core tries to hit the 80% usage of console applications, leaving other c
 
 In addition to the events exposed by Widget such as ENTER and LEAVE, Textview exposes ENTER_ROW, CHANGE and PRESS
 
+PRESS is useful for performing some function when the user presses ENTER on a line or word. The example testlistbox.rb uses `word_under_cursor` to popup documentation for a method. If you place tabular data inside a textview (say using Tabular), you may use this to sort a column based on which column the user pressed ENTER on, if he is on the first row.
 
+CHANGE is useful since we often include `Vieditable` on textviews. This allows editing via VIM keys (deleting a line, editing a line at the bottom of the screen in a textfield, or inserting a line after taking input in a textfield at bottom of screen).
+
+## Textview popups
+
+This is useful for popping up some large, multi-line text. In many programs, the exception is popped up using this.
+
+You may just pass an exception object in the form of:
+
+    textdialog err
+
+This method checks for an exception object and treats it as:
+
+    textdialog [err.to_s, *err.backtrace], :title => "Exception"
+
+Title is optional, and defaults to "Alert".
+
+An example from abasiclist.rb is:
+
+    textdialog(%x[ gem specification #{name} ].split("\n") , :title => 'Specification')
+
+dbdemo.rb displays the result of the SQL statement in a textdialog.
 
 Prev: [Lists](list.md)
 Next: [Tables](table.md)
