@@ -35,7 +35,7 @@ and the log level.
 ### Widget creation
 
 There are three syntaxes or ways to create widgets.
-The first that is much used in documentation and the oldest samples is the DSL approach. I would recommend against using the DSL approach as that may be deprecated in future releases to make the code base simpler.
+The first that is much used in documentation and the oldest samples is the DSL approach. 
 
 The DSL form is as follows:
    
@@ -45,11 +45,11 @@ The DSL form is as follows:
           text 'hello'
         end
 
-The hash or config form has been used in recent examples and demos a lot. I would like to even remove this form to make the code simpler. However, i am not sure of this since the shortcuts us this form.
+The hash or config form has been used in recent examples and demos a lot. 
 
         w = Thingie.new @form, :row => 1, :col => 3
 
-The third is the conventional ruby way which cannot be deprecated or changed. I would advise you to use this as much as possible. This form needs to be tested, I suspect the constructor expects various values together. Also, several methods are not returning self, such as text in buttons and mnemonic (fixed in 0.0.15)
+The third is the conventional ruby way which cannot be deprecated or changed. However, this form needs to be tested since i have almost never used it. Some methods are not returning self, such as text in buttons and mnemonic (fixed in 0.0.15)
 
         w = Thingie.new(@form).row(1).col(3).
         text('hello').
