@@ -97,6 +97,14 @@ In this example, if a database has been selected, then a list of its tables is u
         end
       end
 
+### Creating a Checkbox MenuItem
+
+In this example, taken from [test2.rb](https://github.com/rkumar/rbcurse-extras/blob/master/examples/test2.rb), a menuitem is created. A previously created label named colorlabel is passed as an argument. The block executed sets the attribute of that label to reverse or normal based on whether the menuitem is checked or not.
+
+      item = RubyCurses::CheckBoxMenuItem.new "Reverse"
+      
+      item.command(colorlabel){|it, label| att = it.getvalue ? 'reverse' : 'normal'; label.attr(att); label.repaint}
+
 ## Menu events
 
 -
