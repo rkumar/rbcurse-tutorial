@@ -43,21 +43,21 @@ In the final two lines, a toggle key has been associated with the menubar. This 
 
 One may also create a menubar and it's items in the block way. This sample is taken from [dbdemo.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/dbdemo.rb)
 
-  mb = menubar do
-    keep_visible true
-    menu "File" do
-      item "Open", "O" do
-        accelerator "Ctrl-O"
-        command do 
-          alert "HA!! you wanted to open a file?"
-        end
-      end
+      mb = menubar do
+        keep_visible true
+        menu "File" do
+          item "Open", "O" do
+            accelerator "Ctrl-O"
+            command do 
+              alert "HA!! you wanted to open a file?"
+            end
+          end
 
-      separator
+          separator
 
-      item "Close", "C"
+          item "Close", "C"
 
-      ... etc ...
+          ... etc ...
 
 
 ### Dynamic generation of menuitems
