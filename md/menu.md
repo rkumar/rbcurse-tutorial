@@ -1,0 +1,111 @@
+# Menus
+
+This page describes how to create menubars and popup (contextual) menus.
+
+Menu's provide a way of organizing and displaying various actions of an application. A menu may be present on the top of the screen, or may be hidden and made visible on pressing a key (such as F2). The Links application for example makes the menu visible on ESCAPE.
+
+## Menu related items and widgets
+
+Menu's contain separators, menuitems, accelerators and menu actions.
+Menuitems can the menu;s themselves. They can also be checkboxes. Usually they are labels or action objects, allowing reuse of an action across the application (such as buttons and key bindings).
+
+A form may have only one menu bar set using Form's set_menu_bar method.
+
+    @form.set_menu_bar mb
+
+## Creating a Menu
+
+### Traditional way
+
+The following lines show creation of a menubar object. Then a menu is created giving a title. A menubar will have several menus. Then `MenuItem` objects are created and added to the `Menu` object named `filemenu`. A command block has ebeen associated with each `MenuItem` which will be invoked upon selection. Finally, the filemenu is added to the menu bar.
+
+      mb = RubyCurses::MenuBar.new
+      filemenu = RubyCurses::Menu.new "File"
+      filemenu.add(item = RubyCurses::MenuItem.new("Open",'O'))
+      item.command(@form) {|it, form|  $message.value = "Open called on menu bar"; 
+      }
+
+      filemenu.insert_separator 1
+
+      filemenu.add(RubyCurses::MenuItem.new "New",'N')
+      filemenu.add(item = RubyCurses::MenuItem.new("Save",'S'))
+      item.command() do |it|  
+      end
+
+      mb.add filemenu
+
+      mb.toggle_key = FFI::NCurses::KEY_F2
+      @form.set_menu_bar  mb
+     
+In the final two lines, a toggle key has been associated with the menubar. This will take control of the cursor to the menubar and make it visible. The menubar has been set to the form. This sample is from test2.rb in [rbcurse-extra](https://github.com/rkumar/rbcurse-extras/blob/master/examples/test2.rb)
+
+### Block way
+
+One may also create a menubar and it's items in the block way. This sample is taken from [dbdemo.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/dbdemo.rb)
+
+  mb = menubar do
+    keep_visible true
+    menu "File" do
+      item "Open", "O" do
+        accelerator "Ctrl-O"
+        command do 
+          alert "HA!! you wanted to open a file?"
+        end
+      end
+
+      separator
+
+      item "Close", "C"
+
+      ... etc ...
+
+
+### Dynamic generation of menuitems
+
+It is possible in a *limited* way to use the block approach to create a list of menu items at run time. Some menu items
+may show filenames, or database names, or column names for the user to select. The column names depend on the table selected and therefore cannot be set upon start of the application.
+
+[dbdemo.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/dbdemo.rb) uses this facility.
+
+In this example, `item_list` generates a list of menuitems based on the databases in the directory. Upon selection, the program connects to the database, and populates a listbox with the names of tables. Please note that it is not possible to create a secondary list based on this.
+
+      menu "Database" do
+        item_list do
+          Dir.glob("**/*.{sqlite,db}")
+        end
+        command do |menuitem, text|
+          connect text
+          form.by_name["tlist"].list(get_table_names)
+        end
+      end
+
+To generate a secondary list, we use a small work-around of using a popup.
+In this example, if a database has been selected, then a list of its tables is used to create menuitems. Upon selection of a table, a popup with the column names is created for user selection.
+
+      menu "Tables" do
+        item_list do
+          if $current_db
+            get_table_names
+          end
+        end
+        command do |menuitem, text|
+          $current_table = text
+      
+          create_popup(get_column_names(text), :multiple) { |value| view_data( text, value.join(",") ) }
+        end
+      end
+
+## Menu events
+
+-
+-
+-
+
+## 
+
+
+### See also:
+
+-
+-
+
