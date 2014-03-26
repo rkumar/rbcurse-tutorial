@@ -87,12 +87,75 @@ The return value is `true` for pressing yes, and `false` for no.
        throw :close
     end
 
+There is also an old style program that gets the confirmation at the bottom of the screen, and prompts of a y or n.
+`rb_confirm` (alias `confirm_window` )
 
-## 
+
+    rb_confirm text, aconfig={}, &block
+
+This returns a true (for Y/y) else false.
+If a default (true or false) is passed in the Hash, then the user can press Enter and the default is returned.
+The Hash can also have ':color' or ':bgcolor' but there is not wait.
+
+### Print a status or error message
+
+    print_status_message text, aconfig={}, &block
+    print_error_message text, aconfig={}, &block
+
+This method prints a status or error message at the bottom of the screen and pauses for a key. 
+
+`text` can be a string, Variable or Exception. 
+`aconfig` is a Hash that may have ':color', ':bgcolor' or ':color_pair'
+It may also have ':wait' which takes a number of seconds to wait before closing (in case the user does not press a key).
+
+Currently, the only difference between these two methods is that error prints red on black whereas status prints white on black.
+
+### Progress Dialog
+
+This is a window for printing status messages during a process. This is not the same as the [Progress widget](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/rprogress.rb) which is embedded in a form.
+
+There are two forms: progress_dialog has the look of a popup with borders. It has a height of 10 and width of 60. `status_window` does not have borders and takes the last two rows of the screen like old applications. The choice of using this depends on the look and feel you want.
+
+
+   progress_dialog config={}, &block
+   status_window config={}, &block
+
+Both return a StatusWindow so they have identical operations such as `print`, `print_string`, `destroy`, `hide`, `show` , `linger` and `pause`. 
+
+    sw = progress_dialog :color_pair => $reversecolor, :row_offset => 4, :col_offset => 5
+
+`print (array)` : will print the array, one element on each row.
+`printstring (row, col, string, color_pair)` : print given string on row and col. color_pair is optional and default to that of window. It may be supplied when calling status_window or progress_dialog.
+`pause` waits for a char from the user
+`linger` keeps the window open for a second and then destroys it.
+In all other case, `destroy` must be called on the status window.
+
+### Popup list
+
+    popuplist list, config={}, &block
+
+`popuplist` allows us to popup a list in a dialog for the user to select. The selected_index is returned.
+
+ENTER and SPACE are used to select and return the current index
+
+In multiple selection mode, ENTER returns an array of indices. By default, ':selection_mode' is ':single'. It may also be ':multiple'. Keys for multiple selection need to be confirmed with List widget.
+
+A nil is returned if the user presses 'C-q'.
+
+    if names
+        ix = popuplist( names )
+        if ix
+          value = names[ix]
+        end
+    end
+
+See dbdemo.rb for usage 
+
+
 
 
 ### See also:
 
--
+- [dbdemo,rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/dbdemo.rb)
 -
 
