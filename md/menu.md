@@ -105,14 +105,38 @@ In this example, taken from [test2.rb](https://github.com/rkumar/rbcurse-extras/
       
       item.command(colorlabel){|it, label| att = it.getvalue ? 'reverse' : 'normal'; label.attr(att); label.repaint}
 
+### Accelerator keys
+
+Specifying an Accelerator key prints the key combination after the menu item's label. Such as "C-x" after "Cut". However, this does not actually create a mapping. One has to create this mapping on the form level.
+
+
+### Mnemonics
+
+Mnemonics refer to a character in the item's text that usually appears underlined and may be used to trigger the action from anywhere on the menu. Since several terminals (TERM settings are unable to show underlines, therefore currently the mnemonic is shown in "reverse")
+
+In this snippet, the text is "Open" and the mnemonic is "O".
+
+          item "Open", "O" do
+
 ## Menu events
 
--
--
--
+Menubar and it's widgets do not expose any events. However, `command` is mapped to the `fire` of a menu or menuitem.
 
-## 
+          item "Open", "O" do
+            accelerator "Ctrl-O"
+            command do 
+              alert "You wanted to open a file?"
+            end
+          end
 
+## Other operations
+
+- keep_visible : To save space, the menu bar is hidden by default. This is based on the behaviour of the links browser. To keep it visible, set keep_visible to true.
+- add_separator (alias separator) : appends a separator after menuitem
+- insert_separator : insert a separator at given index
+- enabled : default true. Set to false to disable a menu or menuitem.
+
+## Contextual Menus
 
 ### See also:
 
