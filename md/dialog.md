@@ -152,8 +152,6 @@ A nil is returned if the user presses 'C-q'.
 See dbdemo.rb for usage 
 
 
-
-
 ### See also:
 
 The following demos show usage of the above features
