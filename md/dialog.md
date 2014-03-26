@@ -48,11 +48,45 @@ The current code of `view` is:
         RubyCurses::Viewer.view what, config, &block
       end
 
-## WIDGET events
+### Getting a string
 
--
--
--
+This popups a dialog asking the user for a string. 
+
+    get_string label, config
+
+Config contains an optional `:title` which defaults to "Entry". It also contains `:default` which is an optional default value to use for the field, and `:maxlen` and `:display_length` for the field.
+
+`config` contains two hashes `:label_config` and `field_config` for configuring the respective field and label.
+You may thus override the row and col or color or bgcolor of either.
+
+`get_string` also maintains a history of what the user has typed in this session in a global variable named `$get_string_history`. This is available via the `M-h` key. A program can load this variable from a saved source prior to calling `get_string`. A program may maintain separate history for different types of data prompted to user, and populate this variable accordingly prior to calling this method.
+
+Upon pressing OK, returns the string entered. Upon pressing Cancel returns `nil`.
+
+    str = get_string "Enter Name: ", :title => "User Input", :default => "Bilbo"
+
+`get_string` yields the field created for any processing.
+
+### Getting a confirmation
+
+`confirm` is used to get a confirmation from the user
+
+    confirm text, config, block
+
+    confirm "Would you like to quit?", :title => "Quit"
+
+The resultant dialog has an OK and Cancel with OK being the default.
+To change the default to cancel, add this in the config:
+
+    :default_button => 1
+
+The default title is "Confirm"
+The return value is `true` for pressing yes, and `false` for no.
+
+    if confirm "Leave this application?"
+       throw :close
+    end
+
 
 ## 
 
