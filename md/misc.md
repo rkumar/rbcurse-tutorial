@@ -167,3 +167,29 @@ testfields.rb contains this in the main loop.
 
 An alert is first popped up to the user if the input value fails the regex or range. Then the original value
 is set into the field, to prevent the user from saving or exiting with a wrong value. 
+
+## FieldHistory
+
+TODO
+Used to show a popup containing history of a field, i.e. values previously entered, so they can be reused.
+One can preset some values in them also, or read from a config file and populate the history. Usually is mapped to M-h.
+
+## PromptMenu
+
+## Vim like editing (Vieditable)
+
+## ListEditable
+
+## Kill Rings
+
+## Multiple Buffers
+
+## Focus Manager
+
+Grab bars
+
+## WidgetMenu
+
+TODO
+IS this still used, what is it ?
+
