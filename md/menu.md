@@ -138,6 +138,8 @@ Menubar and it's widgets do not expose any events. However, `command` is mapped 
 
 ## Contextual Menus
 
+Contextual menus are not part of the core package. If you are interested in using them, please see `rpopupmenu.rb` in the rbcurse-extras package/gem. A Popup menu is used on a widget level, and pops up on a key with menu items just like a menu.
+
 ### See also:
 
 -
