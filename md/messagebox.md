@@ -1,6 +1,6 @@
 # MessageBox
 
-Last update: 2014-03-27 15:56
+Last update: 2014-03-27 16:04
 
 A messagebox is a popup window with a form and buttons. The widgets may be specified, as well as the button/s. Messageboxes are used internally in dialogs for getting a string, getting a confirmation, or alerting a user.
 
@@ -146,12 +146,13 @@ To use the mnemonics, the user has to press the Alt key with the mnemonic since 
 
 As mentioned earlier, use `text` if the size of the String is not known. There is currently one difference in behaviour between `text` and `message`, Message uses a label which does not take focus. If ENTER is pressed, the form interprets that as the default button being pressed. However, `text` uses a textview (to enable searching and scrolling), thus it consumes ENTER. Therefore, the user will have to tab out of the text to the button for an ENTER to have effect.
 
-## 
+A user may use 'C-q' and 'Esc-Esc' to quit a messagebox in place of pressing Cancel.
+
 
 
 ### See also:
 
--
--
+Examples: [testmessagebox.rb](https://github.com/rkumar/rbcurse-core/blob/master/examples/testmessagebox.rb)
 
-[Source]()
+
+Source: [rmessagebox.rb](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/rmessagebox.rb)
