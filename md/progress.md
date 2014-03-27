@@ -1,6 +1,6 @@
 # Progress Bar
 
-Last update: 2014-03-28 00:03
+Last update: 2014-03-28 00:04
 
 This describes how to create and update a progress bar. 
 
@@ -24,7 +24,7 @@ The main method of a progress bar is `fraction(percent)` which tells it how much
 
       pbar1.fraction(0.32)
 
-[image](images/testprogress.png)
+![image](images/testprogress.png)
 
 
 
