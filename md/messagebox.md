@@ -1,12 +1,12 @@
 # MessageBox
 
-Last update: 2014-03-27 14:34
+Last update: 2014-03-27 15:56
 
 A messagebox is a popup window with a form and buttons. The widgets may be specified, as well as the button/s. Messageboxes are used internally in dialogs for getting a string, getting a confirmation, or alerting a user.
 
 ## Creating a MessageBox
 
-The `add` (aka `item`) method is used to add widgets to the messagebox, and `button_type` to specify which combination of buttons are required such as ':ok_cancel', ':ok' etc. The `message` method creates a label.
+The `add` (aka `item`) method is used to add widgets to the messagebox. `button_type` is used to specify which combination of buttons are required such as ':ok_cancel', ':ok' etc. The `message` method creates a label and is used for short strings that will fit within the width of the window. The `text` method is to be used if displaying a long string or array, especially if the size of the string is not known. `text` uses a TextView so allows scrolling, searching, etc,, and thus takes focus unlike `message`.
 
 MessageBox's `run` method is called which returns the index of the button clicked, from which it can be ascertained if the user pressed Ok or Cancel. It is recommended to check for Ok and Cancel before proceeding.
 
@@ -133,13 +133,18 @@ Please note that in the case of custom buttons, the messagebox `run` returns wha
 
 To use the mnemonics, the user has to press the Alt key with the mnemonic since that is default button behaviour. Menulinks use the key itself as a mnemonic, so one can consider them also.
 
-## MessageBox events
-
--
--
--
-
 ## MessageBox operations
+
+- message (String) : displays string using a Label
+- text (String or Array): displays wrapped String or Array using a Textview (use if size of text is not known)
+- add / item (widget) : add a widget
+- button_type (symbol) : specify button/s to place. e.g. :ok, :ok_cancel, :ok_apply_cancel, :yes_no, :yes_no_cancel
+- default_button (int) : index of button that is selected if user presses ENTER. default 0
+- widget (int) : return handle to widget at given offset
+- widget (String) : return handle to widget by given name
+- run : displays the messagebox and returns offset of button pressed
+
+As mentioned earlier, use `text` if the size of the String is not known. There is currently one difference in behaviour between `text` and `message`, Message uses a label which does not take focus. If ENTER is pressed, the form interprets that as the default button being pressed. However, `text` uses a textview (to enable searching and scrolling), thus it consumes ENTER. Therefore, the user will have to tab out of the text to the button for an ENTER to have effect.
 
 ## 
 
