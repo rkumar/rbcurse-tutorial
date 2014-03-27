@@ -1,6 +1,6 @@
 # MessageBox
 
-Last update: 2014-03-27 13:20
+Last update: 2014-03-27 14:34
 
 A messagebox is a popup window with a form and buttons. The widgets may be specified, as well as the button/s. Messageboxes are used internally in dialogs for getting a string, getting a confirmation, or alerting a user.
 
@@ -16,7 +16,8 @@ This is a simple example that prompts the user to enter a name. It is similar to
         title "Enter your name"
       
         message "Enter your first name. Initcaps "
-        add Field.new :chars_allowed => /[^0-9xyz]/, :valid_regex => /^[A-Z][a-z]*/, :default => "Matz", :bgcolor => :cyan
+        add Field.new :chars_allowed => /[^0-9xyz]/, :valid_regex => /^[A-Z][a-z]*/, 
+            :default => "Matz", :bgcolor => :cyan
         button_type :ok_cancel
       end
 
@@ -48,6 +49,65 @@ Since the list has been created outside the messagebox and we have the handle "l
       n = @mb.widget(nn)
       $log.debug "XXXX:  #{n.selected_indices}, #{n.name}  "
 
+
+This is a slightly larger example with check boxes and radio buttons. Upon entering the field, a list of names is popped up and the selected value placed in the field.
+
+      mb = MessageBox.new :title => "HTTP Configuration" , :width => 50 do
+        add Field.new :label => 'User', :name => "user", :display_length => 30, :bgcolor => :cyan
+        add CheckBox.new :text => "No &frames", :onvalue => "Selected", :offvalue => "UNselected"
+        add CheckBox.new :text => "Use &HTTP/1.0", :value => true
+        add CheckBox.new :text => "Use &passive FTP"
+        add Label.new    :text => " Language ", :attr => REVERSE
+        $radio = RubyCurses::Variable.new
+        add RadioButton.new :text => "py&thon", :value => "python", :color => :blue, :variable => $radio
+        add RadioButton.new :text => "rub&y", :color => :red, :variable => $radio
+        button_type :ok
+      end
+      field = mb.widget("user")
+      field.bind(:ENTER) do |f|   
+        listconfig = {'bgcolor' => 'blue', 'color' => 'white'} # not used ??
+        users= %w[john tim lee wong rahul edward _why chad andy]
+        index = popuplist(users, :relative_to => field, :col => field.col + 6, :width => field.display_length)
+        field.set_buffer users[index] if index
+      end
+      mb.run
+
+The values selected by the user are available by using `mb.widget(offset)` or `mb.widget(name)`.
+
+### A rudimentary file selector
+
+This simple example creates a listbox containing the filename in the current directory. If the user types in the field, then the system is requeried for matching files, and the list filtered accordingly.
+
+        require 'rbcurse/core/widgets/rlist'
+        label = Label.new 'text' => 'File', 'mnemonic'=>'F', :row => 3, :col => 5
+        field = Field.new :name => "file", :row => 3 , :col => 10, :width => 40, :set_label => label
+        
+        flist = Dir.glob("*")
+        listb = List.new :name => "mylist", :row => 4, :col => 3, :width => 50, :height => 10,
+          :list => flist, :title => "File List", :selected_bgcolor => :white, :selected_color => :blue,
+          :selection_mode => :single, :border_attrib => REVERSE
+        #listb.bind(:ENTER_ROW) { field.set_buffer listb.selected_item }
+        field.bind(:CHANGE) do |f|   
+          flist = Dir.glob("*"+f.getvalue+"*")
+          listb.list flist
+        end
+        mb = RubyCurses::MessageBox.new :height => 20, :width => 60 do
+          title "Sample File Selector"
+          add label
+          add field
+          add listb
+          #height 20
+          #width 60
+          #top 5
+          #left 20
+          #default_button 0
+          button_type :ok_cancel
+
+        end
+        mb.run
+        $log.debug "MBOX :selected #{listb.selected_item}"
+
+The example can be extended to drill down into a directory if the user selects a directory. Upon pressing Ok, the focussed item can be checked for file or directory.
 
 ### Custom buttons
 
