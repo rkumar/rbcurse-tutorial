@@ -88,6 +88,10 @@ If you need a lot of control over the label, use `set_label`, otherwise just use
 
 For example of usage of these properties, see test2.rb or testfields.rb
 
+![testfields1](images/testfields_0.png)
+
+![testfields2](images/testfields_1.png)
+
 Next: [Buttons](button.md)
 [Source](https://github.com/rkumar/rbcurse-core/blob/master/examples/testfields.rb)  
 
