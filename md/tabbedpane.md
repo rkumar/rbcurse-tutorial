@@ -1,6 +1,6 @@
 # TabbedPane
 
-Last update: 2014-03-28 20:46
+Last update: 2014-03-28 21:53
 
 A tabbed pane contains several tabs. Each tab relates to a form or "page". Only one "page" can be viewed at a time. Each ppage contains several widgets.
 
@@ -95,9 +95,6 @@ Tab includes the following operations:
 - item(Widget) : add a widget to the tab
 - widgets : access the widgets (Array)
 - button : retrieve the button associated with the Tab to bind to it's events
-
-
-## 
 
 
 ### See also:
