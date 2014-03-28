@@ -1,6 +1,6 @@
 # TabbedPane
 
-Last update: 2014-03-28 16:05
+Last update: 2014-03-28 20:46
 
 A tabbed pane contains several tabs. Each tab relates to a form or "page". Only one "page" can be viewed at a time. Each ppage contains several widgets.
 
@@ -76,11 +76,26 @@ Or get a handle to the tab as follows:
 
 ## TabbedPane events
 
--
--
--
+This widget does not expose any events at present. These can be added upon request, if required.
+The deprecated tabbedpane in rburse's deprecated folder contains the events that would be added: these relate to creation, deletion and opening of tabs.
+
+The tabs themselves are based on radio buttons, so the events of radio buttons may be used. Use the `button` method on a tab to access its RadioButton object to bind to it's events.
 
 ## TabbedPane operations
+
+- tab(title, config, block)  : alias `add_tab` adds a tab to the pane. Title is a string such as "&Language". 
+- insert_tab(index, title, config, block - inserts a tab at given index
+- remove_tab(tab) - removes given tab
+- remove_all - removes all tabs
+- remove_tab_at(index) - remove tab at index
+- command (attach processing to pressing of action buttons (Ok, Cancel) in a TabbedWindow. Calls the :PRESS of the button.
+
+Tab includes the following operations:
+
+- item(Widget) : add a widget to the tab
+- widgets : access the widgets (Array)
+- button : retrieve the button associated with the Tab to bind to it's events
+
 
 ## 
 
