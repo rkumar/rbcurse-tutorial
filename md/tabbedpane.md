@@ -1,6 +1,6 @@
 # TabbedPane
 
-Last update: 2014-03-28 12:26
+Last update: 2014-03-28 16:05
 
 A tabbed pane contains several tabs. Each tab relates to a form or "page". Only one "page" can be viewed at a time. Each ppage contains several widgets.
 
@@ -49,6 +49,29 @@ For the complete example, see [newtabbedwindow](https://github.com/rkumar/rbcurs
 
 ## Creating a TabbedPane
 
+A tabbed pane uses similar methods as a TabbedWindow.
+
+      tp = RubyCurses::TabbedPane.new @form, :height => 12, :width  => 50,
+        :row => 13, :col => 10 do
+      end
+
+      tp.add_tab "&Language" do
+      end
+
+`add_tab` is a synonym for `tab`, just as `add` is a synonym for `item`.
+
+When used inside a block, a noun such as `item` and `tab` seems more appropriate. When used as a method call, a verb such as `add` or `add_tab` seems right.
+
+Thus one may add widgets to a tab in the following ways:
+
+      tp.add_tab "&Language" do
+          item Field.new ....
+      end
+
+Or get a handle to the tab as follows:
+
+    tab1 = tp.add_tab "&Language"
+    tab1.add Field.new ...
 
 
 ## TabbedPane events
