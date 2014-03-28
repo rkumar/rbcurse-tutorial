@@ -93,5 +93,6 @@ For example of usage of these properties, see test2.rb or testfields.rb
 ![testfields2](images/testfields_1.png)
 
 Next: [Buttons](button.md)
+
 [Source](https://github.com/rkumar/rbcurse-core/blob/master/examples/testfields.rb)  
 

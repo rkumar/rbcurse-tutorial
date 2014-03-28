@@ -1,0 +1,75 @@
+# TabbedPane
+
+Last update: 2014-03-28 12:26
+
+A tabbed pane contains several tabs. Each tab relates to a form or "page". Only one "page" can be viewed at a time. Each ppage contains several widgets.
+
+A TabbedPane is like any other widget, and may be embedded inside a form along with other widgets. However, the usual usage is to place it on a window with buttons such as Ok, Apply and Cancel. This window is popped up from an application. Thus, a TabbedWindow is provided also.
+
+A tabbed window internally sets up a window with a tabbed pane and three buttons: ok, apply and cancel.
+
+## Creating a TabbedWindow
+
+The basic skeleton of a creating a TabbedWindow is as follows:
+
+
+    tp = TabbedWindow.new :row => 3, :col => 7, :width => 60, :height => 20 do
+      title "User Setup"
+      button_type :ok_apply_cancel
+
+      tab "&Profile" do
+      end
+      tab "&Settings" do
+      end
+
+      command do |eve|
+        alert "user pressed button index:#{eve.event} , Name: #{eve.action_command}, Tab: #{eve.source.current_tab} "
+        case eve.event
+        when 0,2                   # ok cancel
+          throw :close, eve.event
+        when 1                     # apply
+        end
+      end
+    end
+    buttonindex = tp.run
+
+There will be multiple `tab` blocks. The command block specifies the action to be performed upon clicking a button. `eve.event` contains the offset of the button pressed. `eve.source.current_tab` is the offset of the tab which is required if Apply was pressed.
+
+Items are added to a tab using `add` or `item` as follows:
+
+      tab "&Settings" do
+        item Label.new nil, :text => "Text", :row => 1, :col => 2, :attr => 'bold'
+        item CheckBox.new nil, :row => 2, :col => 2, :text => "Antialias text"
+        item CheckBox.new nil, :row => 3, :col => 2, :text => "Use bold fonts"
+        item CheckBox.new nil, :row => 4, :col => 2, :text => "Allow blinking text"
+        item CheckBox.new nil, :row => 5, :col => 2, :text => "Display ANSI Colors"
+      end
+
+For the complete example, see [newtabbedwindow](https://github.com/rkumar/rbcurse-core/blob/master/examples/newtabbedwindow.rb)
+
+## Creating a TabbedPane
+
+
+
+## TabbedPane events
+
+-
+-
+-
+
+## TabbedPane operations
+
+## 
+
+
+### See also:
+
+Examples:
+
+- [newtabbedwindow](https://github.com/rkumar/rbcurse-core/blob/master/examples/newtabbedwindow.rb)
+- [tabbedpane](https://github.com/rkumar/rbcurse-core/blob/master/examples/newtesttabp.rb)
+
+
+Source: 
+- [TabbedWindow](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/rtabbedwindow.rb)
+- [TabbedPane](https://github.com/rkumar/rbcurse-core/blob/master/lib/rbcurse/core/widgets/rtabbedpane.rb)
